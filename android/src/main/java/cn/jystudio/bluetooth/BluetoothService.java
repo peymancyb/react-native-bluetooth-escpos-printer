@@ -241,13 +241,17 @@ public class BluetoothService {
             try {
                 // This is a blocking call and will only return on a
                 // successful connection or an exception
-                mmSocket.connect();
+                if(mmSocket != null){
+                    mmSocket.connect();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 connectionFailed();
                 // Close the socket
                 try {
-                    mmSocket.close();
+                    if(mmSocket != null){
+                        mmSocket.close();
+                    }
                 } catch (Exception e2) {
                     Log.e(TAG, "unable to close() socket during connection failure", e2);
                 }
@@ -335,7 +339,9 @@ public class BluetoothService {
 
         public void cancel() {
             try {
-                mmSocket.close();
+                if(mmSocket != null){
+                    mmSocket.close();
+                }
                 connectionLost();
             } catch (IOException e) {
                 Log.e(TAG, "close() of connect socket failed", e);
